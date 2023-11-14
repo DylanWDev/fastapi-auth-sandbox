@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from sqlalchemy.orm import Session
 from schemas import GameSchema
 from database import SessionLocal
+from datetime import date
 import crud
 
 router = APIRouter()
