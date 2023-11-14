@@ -1,10 +1,16 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from models import Game
 from datetime import date
 from schemas import GameSchema
 
 def get_game(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(Game).offset(skip).limit(limit).all()
+    return (
+    db.query(Game)
+    .options(joinedload(Game.genres), joinedload(Game.platforms))
+    .offset(skip)
+    .limit(limit)
+    .all()
+    )
 
 def get_game_by_id(db: Session, game_id: int):
     return db.query(Game).filter(Game.id == game_id).first()

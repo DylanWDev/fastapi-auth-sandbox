@@ -2,12 +2,16 @@ from sqlalchemy import Column, String, Integer, Date, ForeignKey
 from sqlalchemy.orm import relationship
 from database import Base
 
+
 class Game(Base):
     __tablename__ = "games"
 
     id = Column(Integer, primary_key=True)
     title = Column(String)
     release_date = Column(Date)
+
+    genres = relationship("Genre", secondary="game_genres")
+    platforms = relationship("Platform", secondary="game_platforms")
 
 class Genre(Base):
     __tablename__ = "genres"
